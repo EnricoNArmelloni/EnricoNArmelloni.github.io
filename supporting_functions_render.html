@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Functions</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Release Note</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="render_completo.html">Processing and Analysis</a>
+</li>
+<li>
+  <a href="supporting_functions_render.html">Functions</a>
+</li>
+<li>
+  <a href="exercise_rmd.html">Exercise</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Functions</h1>
+
+</div>
+
+
+<p>In this chapter are showed the functions and some plot specifications used to analyse and visualize the dataset for the purpose of the GFCM-DWRS workshop.</p>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
+<p>All the functions here listed are defined in the <code>global_functions.R</code> file. It was necessary to store the default specification in a separate file for tidiness purposes, as the original code was applied on many areas at the same time.</p>
+<div id="inherited-from-r4ais" class="section level2">
+<h2>Inherited from r4ais</h2>
+<p>The <code>estimate_fishing_effort.R</code> function is inherited from the r4ais workflow. It performs a spatial intersection between the fishing tracks and the grid cells, then it calculate the lenght of each segment falling within the grid cell.</p>
+<pre class="r"><code>estimate_fishing_effort &lt;- function(fishing_tracks, grid){
+  lapply(fishing_tracks, function(x){
+    if(is.data.frame(x)){
+      x = st_sf(x)
+    }
+    xgear = unique(x$gear)
+    st_crs(x)=wgs # set crs 
+    if(xgear == &quot;PS&quot;){
+      x$duration=difftime(x$f_time, x$s_time, units=&quot;secs&quot;)
+      x=st_as_sf(x)
+      xint=st_intersection(grid, x)
+      xint=data.frame(xint)
+      xint=xint[,c(&quot;grid_id&quot;, &quot;gear&quot;, &quot;duration&quot;)]
+      xint$fishing_hours=xint$duration/3600
+      f_hours = aggregate(fishing_hours~grid_id+gear, data = xint, sum)
+      colnames(f_hours)[ncol(f_hours)] = &quot;f_hours&quot;
+      grid_edit=merge(grid, f_hours, by=&quot;grid_id&quot;) # combine effort to grid
+      return(grid_edit)
+    }else{
+      x$distance=st_length(x$geometry, units=&quot;m&quot;) # estimated fishing track 
+      x$duration=difftime(x$f_time, x$s_time, units=&quot;secs&quot;)
+      x$speed_ms=as.numeric(x$distance)/as.numeric(x$duration)
+      x$speed_kn=x$speed_ms*1.94384
+      x=st_as_sf(x)
+      xint=st_intersection(grid, x)
+      if(nrow(xint) &gt; 0){
+        xint$observed_swept=st_length(xint)
+        xint=data.frame(xint)
+        xint=xint[,c(&quot;grid_id&quot;,&quot;MMSI&quot;, &quot;trip&quot;, &quot;s_time&quot; ,&quot;gear&quot;,&quot;observed_swept&quot;, &quot;speed_ms&quot;)]
+        xint$fishing_hours=(as.numeric(xint$observed_swept)/xint$speed_ms)/3600
+        xint
+        f_hours = aggregate(fishing_hours~grid_id+gear+MMSI+trip+s_time, data = xint, sum)  # estimate fishing effort in cells grid
+        colnames(f_hours)[ncol(f_hours)] = &quot;f_hours&quot;
+        grid_edit=merge(grid, f_hours, by=&quot;grid_id&quot;) # combine effort to grid
+        grid_edit=grid_edit[grid_edit$f_hours&gt;0,]
+        return(grid_edit)
+      }
+    }
+  })
+  
+}</code></pre>
+</div>
+<div id="indicators" class="section level2">
+<h2>Indicators</h2>
+<p>Write here some text on the indicators</p>
+<div id="dcf5-extension" class="section level3">
+<h3>DCF5: Extension</h3>
+<p>The <code>ind5</code> function serve to calculate the MSFD indicator D5, or the extension of the fishing activity in a given area. It calculate the number of cells of the grid were fishing activity was observed over the reference period.</p>
+<pre class="r"><code>ind5=function(x){
+  x = unique(x[,c(&#39;FID&#39;)])
+  return(x)
+}</code></pre>
+</div>
+<div id="dcf6-aggregation" class="section level3">
+<h3>DCF6: Aggregation</h3>
+<p>The <code>ind6</code> serve to calculate the MSFD indicator D6, or the aggregation of the fishing activity in a given area. It calculate the number of cells of the grid containing the 90% of the cumulative distribution of the fishing activity over the refere</p>
+<pre class="r"><code>ind6=function(x){
+  x = x[order(x$f_hours, decreasing = T),]
+  x$cum = cumsum(x$f_hours)
+  xthr = sum(x$f_hours, na.rm = T) * 0.9
+  x=x[which(x$cum &lt;= xthr),]
+  return(x)
+}</code></pre>
+</div>
+</div>
+<div id="other-functions" class="section level2">
+<h2>Other functions</h2>
+<p><code>st_fun</code> serve to normalize a vector of data.</p>
+<pre class="r"><code>st_fun = function(x){
+  (x-min(x, na.rm = T))/(max(x, na.rm = T) - min(x, na.rm = T))
+}</code></pre>
+</div>
+</div>
+<div id="plot-specifications" class="section level1">
+<h1>Plot specifications</h1>
+<p>Common specifications for ggplot are stored in a file called <code>plot_specifications.R</code>. It was necessary to store the default specification in a separate file for tidiness purposes, as the original code was applied on many areas at the same time. In this way we ensured that all the plots produced were standardized.</p>
+<div id="map-plot" class="section level2">
+<h2>Map plot</h2>
+<p>For the map plot the standard specification relates to the background image, the cartographic references and the font of the text. Here below is shown the parameters that are fixed:</p>
+<ul>
+<li><code>geom_sf(data = dep, colour = NA, fill = "gray80", alpha = 0.7)</code>: define the depth contours</li>
+<li><code>geom_sf(data = land, fill = "gray33", colour = "gray33")</code>: define the land contours</li>
+<li><code>geom_sf(data = gsa, fill = NA, colour = "gray33", size = 0.5)</code>: define the GSA contours</li>
+<li><code>coord_sf(xlim=c(lims[[1]], lims[[3]]), ylim=c(lims[[2]], lims[[4]]) )</code>: define the bounding box of the plot</li>
+<li><code>theme_bw()</code>: set a black and white outline for the background</li>
+<li><code>theme(...)</code>: define the position and fontsize for title, legend and axes</li>
+<li><code>annotation_scale(location = "bl", width_hint = 0.25)</code>: add scale bar. Requires <code>ggspatial</code> package.</li>
+<li><code>annotation_north_arrow(location = "br", height = unit(.5, "cm"), width = unit(.5, "cm"))</code>: add North arrow. Requires <code>ggspatial</code> package.</li>
+</ul>
+<pre class="r"><code>defo_map=ggplot() + 
+  geom_sf(data = dep, colour = NA, fill = &quot;gray80&quot;, alpha = 0.7) +
+  geom_sf(data = land, fill = &quot;gray33&quot;, colour = &quot;gray33&quot;) +
+  geom_sf(data = gsa, fill = NA, colour = &quot;gray33&quot;, size = 0.5) +
+  coord_sf(xlim=c(lims[[1]], lims[[3]]), ylim=c(lims[[2]], lims[[4]]) ) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = NA, colour = NA),
+        #legend.key.width=unit(0.5,&quot;cm&quot;), 
+        legend.title = element_text(size=text_size),
+        legend.key = element_rect(colour = &quot;white&quot;), 
+        legend.justification = &#39;left&#39;, 
+        legend.position = &#39;bottom&#39;, 
+        legend.box.just = &#39;left&#39;,
+        legend.text = element_text(size = text_size),
+        #axis.text.y = element_text(angle = 90, size=text_size, hjust =1, vjust = 0.5),
+        axis.text.y = element_text(size=text_size),
+        axis.text = element_text(size = text_size), 
+        title = element_text(size = text_size),
+        axis.title = element_text(size = text_size)) +
+  xlab(&quot;&quot;) +
+  annotation_scale(location = &quot;bl&quot;, width_hint = 0.25) +
+  annotation_north_arrow(location = &quot;br&quot;, height = unit(.5, &quot;cm&quot;), width = unit(.5, &quot;cm&quot;))</code></pre>
+<p><img src="supporting_functions_render_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="time-series-plot" class="section level2">
+<h2>Time-Series plot</h2>
+<p>For the time series plot the standard specification relates to the background theme and to the font of the text. Here below is shown the parameters that are fixed:</p>
+<ul>
+<li><code>theme_bw()</code>: set a black and white outline for the background</li>
+<li><code>theme(...)</code>: define the position and fontsize for title, legend and axes</li>
+</ul>
+<pre class="r"><code>defo_ts=ggplot()+ 
+  theme_bw() +
+  theme( plot.title = element_text(hjust = 0),
+         axis.text = element_text(size = text_size), 
+         title = element_text(size = text_size),
+         axis.title = element_text(size = 16),
+         legend.title = element_blank(),
+         legend.text = element_text(size = text_size),
+         legend.position = &quot;bottom&quot;,
+         axis.text.x = element_text(angle = 90))+
+  coord_flip()</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
