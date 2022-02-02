@@ -1,0 +1,11 @@
+name: "release_note"
+navbar:
+  title: "Release Note"
+  left:
+   - text: "Processing and Analysis"
+     href: render_completo.html
+   - text: "Functions"
+     href: supporting_functions_render.html
+   - text: "Exercise"
+     href: exercise_rmd.html
+output_dir: "docs"
