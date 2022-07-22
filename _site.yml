@@ -1,0 +1,11 @@
+name: "release_note"
+navbar:
+  title: "Release Note"
+  left:
+   - text: "Processing and Analysis"
+     href: page1.html
+   - text: "Functions"
+     href: page1.html
+   - text: "Exercise"
+     href: page1.html
+output_dir: "docs"
